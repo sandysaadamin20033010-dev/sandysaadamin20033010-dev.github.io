@@ -246,20 +246,25 @@ li { margin-bottom: 6px; }
 
 .contact-band .btn-row { justify-content: center; }
 
-.contact-mail {
+.btn.big {
+  font-size: 17px;
+  padding: 13px 26px;
+}
+
+.contact-social {
   margin: 22px 0 0;
   font-size: 15px;
   color: rgba(255,255,255,0.92);
 }
 
-.contact-mail a {
+.contact-social a {
   color: #fff;
   font-weight: 600;
   text-decoration: none;
   border-bottom: 1px solid rgba(255,255,255,0.7);
 }
 
-.contact-mail a:hover { opacity: 0.8; }
+.contact-social a:hover { opacity: 0.8; }
 
 footer {
   margin-top: 48px;

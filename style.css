@@ -67,9 +67,19 @@ section {
 
 .hero-text { flex: 1 1 55%; }
 
-.hero .location {
-  color: var(--teal);
+.hero .tags {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--teal);
+  margin: 8px 0 0;
+}
+
+.hero .location {
+  color: var(--ink-2);
+  font-weight: 500;
   font-size: 14px;
   margin: 6px 0 14px;
 }
@@ -77,7 +87,43 @@ section {
 .hero .intro {
   font-size: 18px;
   color: var(--ink-2);
-  margin: 0;
+  margin: 0 0 20px;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--teal);
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 11px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.btn:hover { opacity: 0.88; }
+
+.btn.ghost {
+  background: transparent;
+  color: var(--teal);
+  border: 1.5px solid var(--teal);
+}
+
+.btn.light {
+  background: #fff;
+  color: var(--teal);
+}
+
+.btn.light-ghost {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.8);
 }
 
 .hero-photo {
@@ -140,15 +186,56 @@ li { margin-bottom: 6px; }
   display: block;
 }
 
-.contact { list-style: none; padding: 0; }
-.contact li { margin-bottom: 10px; }
-.contact a {
-  color: var(--teal);
-  font-weight: 500;
-  text-decoration: none;
-  border-bottom: 1px solid var(--teal);
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
 }
-.contact a:hover { opacity: 0.75; }
+
+.card-item {
+  background: var(--sand);
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+
+.card-item h3 { font-size: 16px; margin-bottom: 6px; }
+.card-item p { margin: 0; font-size: 14px; color: var(--ink-2); }
+
+.contact-band {
+  background: var(--teal);
+  color: #fff;
+  border-top: 0;
+  border-radius: 14px;
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.contact-band h2 { color: #fff; margin-bottom: 12px; }
+
+.contact-lead {
+  font-size: 17px;
+  max-width: 520px;
+  margin: 0 auto 24px;
+  color: rgba(255,255,255,0.92);
+}
+
+.contact-band .btn-row { justify-content: center; }
+
+.contact-mail {
+  margin: 22px 0 0;
+  font-size: 15px;
+  color: rgba(255,255,255,0.92);
+}
+
+.contact-mail a {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.7);
+}
+
+.contact-mail a:hover { opacity: 0.8; }
 
 footer {
   margin-top: 48px;
@@ -164,4 +251,6 @@ footer {
   h1 { font-size: 34px; }
   .facts div { flex-direction: column; gap: 2px; }
   .facts dt { flex: none; }
+  .cards { grid-template-columns: 1fr; }
+  .contact-band { padding: 32px 20px; }
 }

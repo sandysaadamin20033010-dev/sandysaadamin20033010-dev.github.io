@@ -59,7 +59,7 @@ nav {
 }
 .logo .accent { color: var(--orange); }
 nav .links { display: flex; gap: 24px; margin-left: auto; }
-nav .links a { text-decoration: none; color: var(--text-2); font-size: 14.5px; font-weight: 500; }
+nav .links a { white-space:nowrap; text-decoration: none; color: var(--text-2); font-size: 14.5px; font-weight: 500; }
 nav .links a:hover { color: var(--text); }
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
@@ -82,6 +82,7 @@ nav .links a:hover { color: var(--text); }
   color: #1c1005;
 }
 
+@media(max-width:1150px){nav .links{display:none}nav>.btn{margin-left:auto;white-space:nowrap}.logo{white-space:nowrap;flex-shrink:0}}
 /* layout */
 .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
 section { padding: 88px 0 8px; scroll-margin-top: 76px; }
@@ -522,10 +523,10 @@ footer {
 <p>Share your request below. Your email is included so Sandy can reply directly.</p>
 <label for="f-email">Your email</label>
 <input id="f-email" name="email" placeholder="you@example.com" autocomplete="email" maxlength="254" required type="email"/>
-<label for="f-phone">Your phone number (optional)</label>
+<label for="f-phone">Your phone number</label>
 <div style="display:grid;grid-template-columns:115px minmax(0,1fr);gap:10px">
-<div><label for="f-code" style="font-size:12px">Country code</label><input id="f-code" list="country-codes" aria-label="Country calling code" value="+20" inputmode="tel" pattern="\+[1-9][0-9]{0,3}" maxlength="5" title="Country code, e.g. +20" type="tel"/><datalist id="country-codes"><option value="+20">Egypt</option><option value="+966">Saudi Arabia</option><option value="+971">UAE</option><option value="+965">Kuwait</option><option value="+974">Qatar</option><option value="+973">Bahrain</option><option value="+968">Oman</option><option value="+962">Jordan</option><option value="+961">Lebanon</option><option value="+1">US / Canada</option><option value="+44">UK</option><option value="+33">France</option><option value="+49">Germany</option></datalist></div>
-<div><label for="f-phone" style="font-size:12px">Phone number</label><input id="f-phone" name="phone" placeholder="Digits only" autocomplete="tel-national" inputmode="numeric" maxlength="15" pattern="[0-9]{6,15}" title="Enter 6 to 15 digits, without the country code." type="tel"/></div></div>
+<div><label for="f-code" style="font-size:12px">Country code</label><input id="f-code" required list="country-codes" aria-label="Country calling code" value="+20" inputmode="tel" pattern="\+[1-9][0-9]{0,3}" maxlength="5" title="Country code, e.g. +20" type="tel"/><datalist id="country-codes"><option value="+20">Egypt</option><option value="+966">Saudi Arabia</option><option value="+971">UAE</option><option value="+965">Kuwait</option><option value="+974">Qatar</option><option value="+973">Bahrain</option><option value="+968">Oman</option><option value="+962">Jordan</option><option value="+961">Lebanon</option><option value="+1">US / Canada</option><option value="+44">UK</option><option value="+33">France</option><option value="+49">Germany</option></datalist></div>
+<div><label for="f-phone" style="font-size:12px">Phone number</label><input id="f-phone" required name="phone" placeholder="Digits only" autocomplete="tel-national" inputmode="numeric" maxlength="15" pattern="[0-9]{6,15}" title="Enter 6 to 15 digits, without the country code." type="tel"/></div></div>
 <label for="f-msg">Your request</label>
 <textarea id="f-msg" name="request" maxlength="5000" placeholder="Tell me about your brand, event or project" required=""></textarea>
 <label for="f-budget">Budget (optional)</label>

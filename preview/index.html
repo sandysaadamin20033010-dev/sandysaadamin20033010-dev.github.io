@@ -554,8 +554,9 @@ form.addEventListener('submit', function (e) {
       _honey: form.querySelector('[name=_honey]').value
     })
   }).then(function (res) {
-    if (!res.ok) { throw new Error('send failed'); }
-    return res.json();
+    return res.json().then(function (data) {
+      if (!res.ok || String(data.success) !== 'true') { throw new Error('send failed'); }
+    });
   }).then(function () {
     status.className = 'form-status ok';
     status.textContent = 'Message sent! Sandy will get back to you soon.';

@@ -523,12 +523,14 @@ footer {
 <label for="f-email">Your email</label>
 <input id="f-email" name="email" placeholder="you@example.com" autocomplete="email" maxlength="254" required type="email"/>
 <label for="f-phone">Your phone number (optional)</label>
-<input id="f-phone" name="phone" placeholder="Include country code" autocomplete="tel" maxlength="40" type="tel"/>
+<div style="display:grid;grid-template-columns:115px minmax(0,1fr);gap:10px">
+<div><label for="f-code" style="font-size:12px">Country code</label><input id="f-code" list="country-codes" aria-label="Country calling code" value="+20" inputmode="tel" pattern="\+[1-9][0-9]{0,3}" maxlength="5" title="Country code, e.g. +20" type="tel"/><datalist id="country-codes"><option value="+20">Egypt</option><option value="+966">Saudi Arabia</option><option value="+971">UAE</option><option value="+965">Kuwait</option><option value="+974">Qatar</option><option value="+973">Bahrain</option><option value="+968">Oman</option><option value="+962">Jordan</option><option value="+961">Lebanon</option><option value="+1">US / Canada</option><option value="+44">UK</option><option value="+33">France</option><option value="+49">Germany</option></datalist></div>
+<div><label for="f-phone" style="font-size:12px">Phone number</label><input id="f-phone" name="phone" placeholder="Digits only" autocomplete="tel-national" inputmode="numeric" maxlength="15" pattern="[0-9]{6,15}" title="Enter 6 to 15 digits, without the country code." type="tel"/></div></div>
 <label for="f-msg">Your request</label>
 <textarea id="f-msg" name="request" maxlength="5000" placeholder="Tell me about your brand, event or project" required=""></textarea>
 <label for="f-budget">Budget (optional)</label>
-<input id="f-budget" name="budget" maxlength="100" placeholder="e.g. 5,000 EGP or to be discussed" type="text"/>
-<p style="font-size:13px;line-height:1.6">Text only. No image or file uploads.</p>
+<input id="f-budget" name="budget" inputmode="numeric" pattern="[0-9]+" maxlength="15" title="Numbers only, without currency symbols or separators." placeholder="Numbers only" type="text"/>
+<p style="font-size:13px;line-height:1.6">Text only. Images, videos and other file attachments cannot be pasted or dropped into this form.</p>
 <input autocomplete="off" name="_honey" style="display:none" tabindex="-1" type="text"/>
 <button class="btn btn-warm" id="f-submit" type="submit">Submit</button>
 <p aria-live="polite" class="form-status" id="formStatus" role="status"></p>
@@ -543,10 +545,29 @@ footer {
 var form = document.getElementById('mailForm');
 var statusEl = document.getElementById('formStatus');
 var submitBtn = document.getElementById('f-submit');
+// Accept plain text only. Never turn clipboard or dragged files into uploads.
+function blockFiles(e) {
+  var transfer = e.clipboardData || e.dataTransfer;
+  if (transfer && (transfer.files.length || Array.from(transfer.items || []).some(function (item) { return item.kind === 'file'; }))) {
+    e.preventDefault();
+    statusEl.className = 'form-status err';
+    statusEl.textContent = 'Text only. Images, videos and other files are not accepted.';
+    return true;
+  }
+  return false;
+}
+form.addEventListener('paste', blockFiles);
+form.addEventListener('drop', blockFiles);
+form.addEventListener('dragover', function (e) {
+  if (e.dataTransfer && Array.from(e.dataTransfer.types || []).indexOf('Files') !== -1) e.preventDefault();
+});
 form.addEventListener('submit', function (e) {
   e.preventDefault();
   var email = document.getElementById('f-email').value.trim();
-  var phone = document.getElementById('f-phone').value.trim();
+  var nationalPhone = document.getElementById('f-phone').value.trim();
+  var code = document.getElementById('f-code').value.trim();
+  var phone = nationalPhone ? code + ' ' + nationalPhone : '';
+  if (nationalPhone && !code) { document.getElementById('f-code').reportValidity(); statusEl.textContent = 'Choose or enter a country code.'; return; }
   var budget = document.getElementById('f-budget').value.trim();
   var msg = document.getElementById('f-msg').value.trim();
   submitBtn.disabled = true;

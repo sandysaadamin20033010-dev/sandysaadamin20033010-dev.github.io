@@ -555,16 +555,23 @@ form.addEventListener('submit', function (e) {
     })
   }).then(function (res) {
     return res.json().then(function (data) {
-      if (!res.ok || String(data.success) !== 'true') { throw new Error('send failed'); }
+      if (!res.ok || String(data.success) !== 'true') {
+        var sendError = new Error('send failed');
+        sendError.providerMessage = typeof data.message === 'string' ? data.message : '';
+        throw sendError;
+      }
     });
   }).then(function () {
     statusEl.className = 'form-status ok';
     statusEl.textContent = 'Message sent! Sandy will get back to you soon.';
     form.reset();
     submitBtn.disabled = false;
-  }).catch(function () {
+  }).catch(function (error) {
     statusEl.className = 'form-status err';
-    statusEl.innerHTML = 'Something went wrong sending it. You can still <a href="mailto:sandysaadamin20033010@gmail.com?subject=' + encodeURIComponent('Portfolio contact from ' + name) + '">email me directly</a>.';
+    statusEl.textContent = /activat/i.test(error.providerMessage || '')
+      ? 'This contact form is awaiting email activation. Please email Sandy directly for now.'
+      : 'Your message could not be sent. Please try again or email Sandy directly.';
+    console.warn('Contact form rejected:', error.providerMessage || error.message);
     submitBtn.disabled = false;
   });
 });

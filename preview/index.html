@@ -524,9 +524,7 @@ footer {
 <label for="f-email">Your email</label>
 <input id="f-email" name="email" placeholder="you@example.com" autocomplete="email" maxlength="254" required type="email"/>
 <label for="f-phone">Your phone number</label>
-<div style="display:grid;grid-template-columns:115px minmax(0,1fr);gap:10px">
-<div><label for="f-code" style="font-size:12px">Country code</label><input id="f-code" required list="country-codes" aria-label="Country calling code" value="+20" inputmode="tel" pattern="\+[1-9][0-9]{0,3}" maxlength="5" title="Country code, e.g. +20" type="tel"/><datalist id="country-codes"><option value="+20">Egypt</option><option value="+966">Saudi Arabia</option><option value="+971">UAE</option><option value="+965">Kuwait</option><option value="+974">Qatar</option><option value="+973">Bahrain</option><option value="+968">Oman</option><option value="+962">Jordan</option><option value="+961">Lebanon</option><option value="+1">US / Canada</option><option value="+44">UK</option><option value="+33">France</option><option value="+49">Germany</option></datalist></div>
-<div><label for="f-phone" style="font-size:12px">Phone number</label><input id="f-phone" required name="phone" placeholder="Digits only" autocomplete="tel-national" inputmode="numeric" maxlength="15" pattern="[0-9]{6,15}" title="Enter 6 to 15 digits, without the country code." type="tel"/></div></div>
+<input id="f-phone" required name="phone" placeholder="+country code and phone number" autocomplete="tel" inputmode="tel" maxlength="20" pattern="\+[1-9][0-9 ]{6,18}" title="Include + and your country code, followed by your phone number (7 to 15 digits total)." type="tel"/>
 <label for="f-msg">Your request</label>
 <textarea id="f-msg" name="request" maxlength="5000" placeholder="Tell me about your brand, event or project" required=""></textarea>
 <label for="f-budget">Budget (optional)</label>
@@ -565,10 +563,15 @@ form.addEventListener('dragover', function (e) {
 form.addEventListener('submit', function (e) {
   e.preventDefault();
   var email = document.getElementById('f-email').value.trim();
-  var nationalPhone = document.getElementById('f-phone').value.trim();
-  var code = document.getElementById('f-code').value.trim();
-  var phone = nationalPhone ? code + ' ' + nationalPhone : '';
-  if (nationalPhone && !code) { document.getElementById('f-code').reportValidity(); statusEl.textContent = 'Choose or enter a country code.'; return; }
+  var phoneInput = document.getElementById('f-phone');
+  var phone = phoneInput.value.trim();
+  var digits = phone.replace(/[^0-9]/g, '');
+  if (!/^\+[1-9][0-9 ]+$/.test(phone) || digits.length < 7 || digits.length > 15) {
+    statusEl.className = 'form-status err';
+    statusEl.textContent = 'Include + and your country code, with 7 to 15 digits in total.';
+    phoneInput.focus();
+    return;
+  }
   var budget = document.getElementById('f-budget').value.trim();
   var msg = document.getElementById('f-msg').value.trim();
   submitBtn.disabled = true;

@@ -533,15 +533,15 @@ footer {
 
 <script>
 var form = document.getElementById('mailForm');
-var status = document.getElementById('formStatus');
+var statusEl = document.getElementById('formStatus');
 var submitBtn = document.getElementById('f-submit');
 form.addEventListener('submit', function (e) {
   e.preventDefault();
   var name = document.getElementById('f-name').value.trim();
   var msg = document.getElementById('f-msg').value.trim();
   submitBtn.disabled = true;
-  status.className = 'form-status';
-  status.textContent = 'Sending…';
+  statusEl.className = 'form-status';
+  statusEl.textContent = 'Sending…';
   fetch('https://formsubmit.co/ajax/sandysaadamin20033010@gmail.com', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -558,13 +558,13 @@ form.addEventListener('submit', function (e) {
       if (!res.ok || String(data.success) !== 'true') { throw new Error('send failed'); }
     });
   }).then(function () {
-    status.className = 'form-status ok';
-    status.textContent = 'Message sent! Sandy will get back to you soon.';
+    statusEl.className = 'form-status ok';
+    statusEl.textContent = 'Message sent! Sandy will get back to you soon.';
     form.reset();
     submitBtn.disabled = false;
   }).catch(function () {
-    status.className = 'form-status err';
-    status.innerHTML = 'Something went wrong sending it. You can still <a href="mailto:sandysaadamin20033010@gmail.com?subject=' + encodeURIComponent('Portfolio contact from ' + name) + '">email me directly</a>.';
+    statusEl.className = 'form-status err';
+    statusEl.innerHTML = 'Something went wrong sending it. You can still <a href="mailto:sandysaadamin20033010@gmail.com?subject=' + encodeURIComponent('Portfolio contact from ' + name) + '">email me directly</a>.';
     submitBtn.disabled = false;
   });
 });

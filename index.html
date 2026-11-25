@@ -604,8 +604,8 @@ nav .logo .logo-img{height:44px;width:auto;display:block}
 <p>Share your request below. Your email is included so Sandy can reply directly.</p>
 <label for="f-email">Your email</label>
 <input autocomplete="email" id="f-email" maxlength="254" name="email" placeholder="you@example.com" required="" type="email"/>
-<label for="f-phone">Your phone number</label>
-<input autocomplete="tel" id="f-phone" inputmode="tel" maxlength="20" name="phone" pattern="\+[1-9][0-9 ]{6,18}" placeholder="+country code and phone number" required="" title="Include + and your country code, followed by your phone number (7 to 15 digits total)." type="tel"/>
+<label for="f-phone">Your phone number (with country code)</label>
+<input autocomplete="tel" id="f-phone" inputmode="tel" maxlength="20" name="phone" pattern="\+[1-9][0-9 ]{6,18}" placeholder="+20 100 123 4567" required="" title="Include + and your country code, followed by your phone number (7 to 15 digits total)." type="tel"/>
 <label for="f-msg">Your request</label>
 <textarea id="f-msg" maxlength="5000" name="request" placeholder="Tell me about your brand, event or project" required=""></textarea>
 <label for="f-budget">Budget (optional)</label>
@@ -713,4 +713,4 @@ form.addEventListener('submit', function (e) {
 </script><script>
 (function(){const drawer=document.getElementById('site-drawer'),opener=document.querySelector('.menu-toggle');let previousOverflow='';function close(){drawer.close()}opener.addEventListener('click',()=>{drawer.querySelectorAll('[data-section]').forEach(b=>{if(document.querySelector('.nav-item.active')?.dataset.target===b.dataset.section)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';opener.setAttribute('aria-expanded','true');drawer.showModal()});drawer.addEventListener('close',()=>{document.body.style.overflow=previousOverflow;opener.setAttribute('aria-expanded','false');opener.focus()});drawer.querySelector('.drawer-close').addEventListener('click',close);drawer.addEventListener('click',e=>{if(e.target===drawer){let r=drawer.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right)close()}});drawer.querySelectorAll('[data-section]').forEach(b=>b.addEventListener('click',()=>{close();document.querySelector('.nav-item[data-target="'+b.dataset.section+'"]').click()}))})();
 </script></body>
-</html>
+                                                           </html>
